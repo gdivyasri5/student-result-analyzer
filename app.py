@@ -7,7 +7,7 @@ st.write("My first deployed Python project")
 
 FILE = "students.json"
 
-# Load data from file
+# Load data
 if os.path.exists(FILE):
     with open(FILE, "r") as f:
         students = json.load(f)
@@ -20,10 +20,20 @@ marks = st.number_input("Marks", min_value=0, max_value=100, step=1)
 
 if st.button("Add Student"):
     if name:
-        students[name] = marks
+        if marks >= 40:
+            status = "Pass"
+        else:
+            status = "Fail"
+
+        students[name] = {
+            "marks": marks,
+            "status": status
+        }
+
         with open(FILE, "w") as f:
             json.dump(students, f)
-        st.success(f"Added {name} with marks {marks}")
+
+        st.success(f"Added {name} ({status})")
     else:
         st.warning("Please enter student name")
 
