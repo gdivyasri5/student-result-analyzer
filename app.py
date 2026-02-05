@@ -2,7 +2,11 @@ import streamlit as st
 
 st.title("Student Result Analyzer")
 
-students = {}
+if "students" not in st.session_state:
+    st.session_state.students = {}
+
+students = st.session_state.students
+
 
 name = st.text_input("Student Name")
 marks = st.number_input("Marks", min_value=0, max_value=100)
